@@ -1,4 +1,4 @@
-package com.astAndCurious
+package com.FastAndCurious
 
 import io.ktor.client.request.*
 import io.ktor.http.*
