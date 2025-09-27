@@ -1,5 +1,6 @@
 package com.FastAndCurious
 
+import com.FastAndCurious.com.bdui.routing.configureRouting
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

@@ -1,4 +1,4 @@
-package com.FastAndCurious
+package com.FastAndCurious.com.bdui.routing
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
