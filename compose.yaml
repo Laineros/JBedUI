@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DB_URL=mongodb://appuser:apppass@mongo:27017/mydb?authSource=mydb
+      - DB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:${MONGO_PORT}/${MONGO_DB_NAME}?authSource=${MONGO_DB_NAME}
     depends_on:
       - mongo
 
