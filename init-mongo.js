@@ -1,9 +1,42 @@
-db = db.getSiblingDB('mydb');
+// ===============================================
+// 1. Создание Администратора (Root User)
+// Этот пользователь нужен для всех последующих операций управления.
+// Создается в системной базе данных 'admin'.
+// ===============================================
+db = db.getSiblingDB('admin');
 
 db.createUser({
-    user: "appuser",
-    pwd: "apppass",
+    // Использует переменные MONGO_INITDB_ROOT_USERNAME и MONGO_INITDB_ROOT_PASSWORD
+    user: "${MONGO_INITDB_ROOT_USERNAME}",
+    pwd: "${MONGO_INITDB_ROOT_PASSWORD}",
     roles: [
-        { role: "readWrite", db: "mydb" }
+        {
+            // Роль 'root' дает полные права на весь инстанс MongoDB
+            role: "root",
+            db: "admin"
+        }
+    ]
+});
+
+// ===============================================
+// 2. Создание Пользователя Приложения
+// Этот пользователь имеет ограниченные права только для работы приложения.
+// ===============================================
+// Скрипт должен быть запущен с аутентификацией root,
+// поэтому аутентификация здесь не требуется.
+
+// Выбираем целевую базу данных для приложения
+db = db.getSiblingDB('${MONGO_DB_NAME}');
+
+db.createUser({
+    // Использует переменные MONGO_APP_USER и MONGO_APP_PASS
+    user: "${MONGO_APP_USER}",
+    pwd: "${MONGO_APP_PASS}",
+    roles: [
+        {
+            // Роль 'readWrite' только для БД приложения
+            role: "readWrite",
+            db: "${MONGO_DB_NAME}"
+        }
     ]
 });
